@@ -3,7 +3,7 @@ var config = {
     type: Phaser.AUTO, 
     width: 1440, 
     height: 2560,
-    backgroundColor: '#00a0b0',
+    backgroundColor: '#Ffffff', //Yellow:#78A1BB Blue:#F9C80E Green:#7DDF64 Red:#FE4A49
     scene: [preload, mainmenu, preparing, theday, dand]    //load all the scenes you've created in the scene files, the first scene that loads once the game is created is preload
 };
 
