@@ -11,25 +11,13 @@ var mainmenu = new Phaser.Class({
 
     create: function ()
     {   
+        var mode2 = localStorage.getItem("mode2");
+        var mode1 = localStorage.getItem("mode1")
         //this.cameras.main.setBackgroundColor('#ffffff');
-        this.add.text(720, 1500, 'text', {
-            fontFamily: 'font1',fontSize: 300
-        }).setWordWrapWidth(300);
-        this.bt1 = this.add.image(0+80, 80, 'button1').setOrigin(0).setInteractive();
-        this.bt1.on('pointerdown', this.clickHandler, this);
-        var bt2 = this.add.image(1440-80, 80, 'button2').setOrigin(1,0).setInteractive();
-
-        bt2.on('clicked', this.clickHandlerBt2, this);
-        
-    },
-    
-    clickHandler: function (bt)
-    {
-        this.scene.start('preparing');
-    },
-    
-    clickHandlerBt2: function ()
-    {
+        this.bt1 = this.add.image(0, window.innerHeight/2, 'button1').setOrigin(0,0.5).setInteractive().setScale(game.global.scaleVar).setFrame(mode1);
+        this.bt1.on('pointerdown', () => {this.scene.start('preparing')});
+        this.bt2 = this.add.image(window.innerWidth, window.innerHeight/2, 'button2').setOrigin(1,0.5).setInteractive().setScale(game.global.scaleVar).setFrame(mode2);
+        this.bt2.on('pointerdown', () => { if(mode2>0){this.scene.start('dand');}});
         
     }
 });

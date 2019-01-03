@@ -11,7 +11,7 @@ var preparing = new Phaser.Class({
 
     create: function ()
     {   
-        this.cameras.main.setBackgroundColor('#f3cca3');
+        this.cameras.main.setBackgroundColor('#F9C80E');
         this.selectedOption="";
         this.correctAnswers = 0;
         this.answers=[];
@@ -39,8 +39,8 @@ var preparing = new Phaser.Class({
         this.options[3] = this.add.image(80, 1800+240, 'optionBox').setOrigin(0,0).setInteractive();
         this.options[3].on('pointerdown', () => {this.selectedOption = 3;this.clickHandler();});
         */
-        this.next = this.add.image(0, 0, 'next').setOrigin(0).setInteractive(); 
-        this.next.on('pointerdown', this.reset, this);
+        this.home = this.add.image(0, 0, 'next').setOrigin(0).setInteractive().setScale(game.global.scaleVar); 
+        this.home.on('pointerdown', () => {this.scene.start('mainmenu')});
         
         this.nextQuestion();
     },
@@ -55,10 +55,10 @@ var preparing = new Phaser.Class({
             this.options[i].text.destroy();
             this.options[i].destroy();
         } 
-        this.notice = this.add.image(720, 0, 'notice').setOrigin(0.5,0).setInteractive(); 
-        this.txtQuestion = this.add.text(720,920, this.getInfo[Q]['Info'], {fontFamily: 'font1',fontSize: 100}).setOrigin(0.5).setWordWrapWidth(1360).setAlign('center');//setShadow(1,0.5);
+        this.notice = this.add.image(window.innerWidth/2, window.innerHeight/2, 'notice').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar); 
+        this.txtQuestion = this.add.text(window.innerWidth/2,window.innerHeight/2, this.getInfo[Q]['Info'], {fontFamily: 'font1',fontSize: 100*game.global.scaleVar}).setOrigin(0.5).setWordWrapWidth(1340*game.global.scaleVar).setAlign('center');//setShadow(1,0.5);
         
-        this.next = this.add.image(720, 2100+100, 'continue').setOrigin(0.5,0).setInteractive();
+        this.next = this.add.image(window.innerWidth/2, window.innerHeight-40, 'continue').setOrigin(0.5,1).setInteractive().setScale(game.global.scaleVar);;
         this.next.on('pointerdown', () => {this.reset();});
     },
     
@@ -66,16 +66,32 @@ var preparing = new Phaser.Class({
         this.notice.destroy();
         this.txtQuestion.destroy();
         this.next.destroy();
-        for (var i=0; i<4; i++)
-        {
-            this.options[i].text.destroy();
-            this.options[i].destroy();
-        } 
         this.selectedCount=0;
         this.questions-=1;
-        if(this.questions==0){this.scene.start('mainmenu');}
+        if(this.questions==0){this.showFinalMessage();}//this.scene.start('mainmenu');}
         else{
         this.nextQuestion();}
+    },
+    
+    showFinalMessage: function(){
+        this.notice.destroy();
+        this.txtQuestion.destroy();
+        this.home.destroy();
+        
+        this.congrats = this.add.image(window.innerWidth/2, 80, 'congrats').setOrigin(0.5,0).setInteractive().setScale(game.global.scaleVar);
+        
+        this.notice = this.add.image(window.innerWidth/2, window.innerHeight/2, 'notice').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar); 
+        this.txtQuestion = this.add.text(window.innerWidth/2,window.innerHeight/2, this.getInfo["Final"], {fontFamily: 'font1',fontSize: 100*game.global.scaleVar}).setOrigin(0.5).setWordWrapWidth(1340*game.global.scaleVar).setAlign('center');//setShadow(1,0.5);
+        
+        var mode2 = localStorage.getItem("mode2");
+        if(mode2<1){
+            localStorage.setItem("mode2", 1);
+        }
+        localStorage.setItem("mode1", 1);
+    
+        
+        this.home_ = this.add.image(window.innerWidth/2, window.innerHeight-40, 'home').setOrigin(0.5,1).setInteractive().setScale(game.global.scaleVar);
+        this.home_.on('pointerdown', () => {this.scene.start('mainmenu');});
     },
     
     nextQuestion: function(){
@@ -87,27 +103,26 @@ var preparing = new Phaser.Class({
         console.log(this.answers);7
         console.log(this.correctAnswers);
         
-        //this.txtQuestion = this.add.bitmapText(720, 450, 'yellowFont', this.getInfo[Q]['Question'], 60).setOrigin(0.5).setCenterAlign();
-        this.txtQuestion = this.add.text(720, 450, this.getInfo[Q]['Question'], {fontFamily: 'font1',fontSize: 100, color:'#FFffff'}).setOrigin(0.5).setWordWrapWidth(1000).setAlign('center');//.setShadow(1,0.5);
+        this.txtQuestion = this.add.text(window.innerWidth/2, 450*game.global.scaleVar, this.getInfo[Q]['Question'], {fontFamily: 'font1',fontSize: 100*game.global.scaleVar, color:'#FFffff'}).setOrigin(0.5).setWordWrapWidth(1300*game.global.scaleVar).setAlign('center');
       
         console.log('inside');
-        this.options[0]= this.add.image(720, 900, 'optionBox').setOrigin(0.5,0).setInteractive();
+        this.options[0]= this.add.image(window.innerWidth/2, 1000*game.global.scaleVar, 'optionBox').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar);
         this.options[0].on('pointerdown', () => {this.selectedOption = 0;this.options[0].disableInteractive();this.clickHandler();});
-        this.options[0].text = this.add.text(720, this.options[0].y+150, this.getInfo[Q]['options'][0][0], {fontFamily: 'font1',fontSize: 80, color:'#000000'}).setOrigin(0.5).setWordWrapWidth(1300).setAlign('center');//.setShadow(1,0.5);
+        this.options[0].text = this.add.text(window.innerWidth/2, this.options[0].y, this.getInfo[Q]['options'][0][0], {fontFamily: 'font1',fontSize: 80*game.global.scaleVar, color:'#000000'}).setOrigin(0.5).setWordWrapWidth(1300*game.global.scaleVar).setAlign('center');//.setShadow(1,0.5);
         
         //this.add.bitmapText(720, this.options[0].y+150, 'yellowFont', this.getInfo[Q]['options'][0][0], 60).setOrigin(0.5);
         
-        this.options[1] = this.add.image(720, 1200+20, 'optionBox').setOrigin(0.5,0).setInteractive();
+        this.options[1] = this.add.image(window.innerWidth/2, 1320*game.global.scaleVar, 'optionBox').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar);
         this.options[1].on('pointerdown', () => {this.selectedOption = 1;this.options[1].disableInteractive();this.clickHandler();});
-        this.options[1].text = this.add.text(720, this.options[1].y+150, this.getInfo[Q]['options'][1][0], {fontFamily: 'font1',fontSize: 80, color:'#000000'}).setOrigin(0.5).setWordWrapWidth(1300).setAlign('center');//.setShadow(1,0.5);
+        this.options[1].text = this.add.text(window.innerWidth/2, this.options[1].y, this.getInfo[Q]['options'][1][0], {fontFamily: 'font1',fontSize: 80*game.global.scaleVar, color:'#000000'}).setOrigin(0.5).setWordWrapWidth(1300*game.global.scaleVar).setAlign('center');//.setShadow(1,0.5);
         
-        this.options[2] = this.add.image(720, 1500+40, 'optionBox').setOrigin(0.5,0).setInteractive();
+        this.options[2] = this.add.image(window.innerWidth/2, 1640*game.global.scaleVar, 'optionBox').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar);
         this.options[2].on('pointerdown', () => {this.selectedOption = 2;this.options[2].disableInteractive();this.clickHandler();});
-        this.options[2].text = this.add.text(720, this.options[2].y+150, this.getInfo[Q]['options'][2][0], {fontFamily: 'font1',fontSize: 80, color:'#000000'}).setOrigin(0.5).setWordWrapWidth(1300).setAlign('center');//.setShadow(1,0.5);
+        this.options[2].text = this.add.text(window.innerWidth/2, this.options[2].y, this.getInfo[Q]['options'][2][0], {fontFamily: 'font1',fontSize: 80*game.global.scaleVar, color:'#000000'}).setOrigin(0.5).setWordWrapWidth(1300*game.global.scaleVar).setAlign('center');//.setShadow(1,0.5);
         
-        this.options[3] = this.add.image(720, 1800+60, 'optionBox').setOrigin(0.5,0).setInteractive();
+        this.options[3] = this.add.image(window.innerWidth/2, 1960*game.global.scaleVar, 'optionBox').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar);
         this.options[3].on('pointerdown', () => {this.selectedOption = 3; this.options[3].disableInteractive(); this.clickHandler();});
-        this.options[3].text = this.add.text(720, this.options[3].y+150, this.getInfo[Q]['options'][3][0], {fontFamily: 'font1',fontSize: 80, color:'#000000'}).setOrigin(0.5).setWordWrapWidth(1300).setAlign('center');//.setShadow(1,0.5);
+        this.options[3].text = this.add.text(window.innerWidth/2, this.options[3].y, this.getInfo[Q]['options'][3][0], {fontFamily: 'font1',fontSize: 80*game.global.scaleVar, color:'#000000'}).setOrigin(0.5).setWordWrapWidth(1300*game.global.scaleVar).setAlign('center');//.setShadow(1,0.5);
         
         this.counter+=1;
     },
@@ -130,7 +145,7 @@ var preparing = new Phaser.Class({
             this.options[this.selectedOption].text.setColor("#ffffff");
         }
         else if (this.selectedCount==this.correctAnswers){  
-            this.continue = this.add.image(720, 2100+100, 'continue').setOrigin(0.5,0).setInteractive();
+            this.continue = this.add.image(window.innerWidth/2, window.innerHeight-40, 'continue').setOrigin(0.5,1).setInteractive().setScale(game.global.scaleVar);;
             this.continue.on('pointerdown', () => {this.showInfo();});
         }
         
