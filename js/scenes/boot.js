@@ -4,7 +4,7 @@ var config = {
     width: window.innerWidth, //1440
     height: window.innerHeight, //2560
     backgroundColor: '#F7F7F7', //Blue:#78A1BB Yellow:#F9C80E Green:#7DDF64 Red:#FE4A49
-    scene: [preload, mainmenu, preparing,dand]    //load all the scenes you've created in the scene files, the first scene that loads once the game is created is preload
+    scene: [preload, mainmenu, preparing,dand,about,info]    //load all the scenes you've created in the scene files, the first scene that loads once the game is created is preload
 };
 
 var game = new Phaser.Game(config); //create game using your created configuration

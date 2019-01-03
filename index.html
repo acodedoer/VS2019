@@ -15,12 +15,25 @@
         font-weight:600;
         font-weight:normal;
       }
-</style>
+        body {
+	margin: 0;
+	overflow: hidden;
+	background-color: black;
+		}
+		
+	#phaser-app {
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+</style>    
 </head>
-<body style="padding:0; marging:0 !imporant">
+<body id="phaser-app" style="padding:0; marging:0 !imporant">
     <!-- include the js game files -->
         <script src="js/scenes/dand.js"></script>
-        <script src="js/scenes/theday.js"></script>
+        <script src="js/scenes/about.js"></script>
+        <script src="js/scenes/info.js"></script>
         <script src="js/scenes/preparing.js"></script>
         <script src="js/scenes/preload.js"></script>
         <script src="js/scenes/mainmenu.js"></script>
