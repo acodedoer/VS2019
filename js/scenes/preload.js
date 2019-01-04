@@ -19,6 +19,7 @@ preload: function  ()
         this.load.image('score', 'assets/score.png');
         this.load.image('congrats', 'assets/congratss.png');
         this.load.image('congrats1', 'assets/congrats2.png');
+        this.load.image('footer', 'assets/footer.png');
 
         this.load.image('home1', 'assets/home1.png');
         this.load.image('home2', 'assets/home2.png');

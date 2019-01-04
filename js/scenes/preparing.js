@@ -16,7 +16,7 @@ var preparing = new Phaser.Class({
         this.correctAnswers = 0;
         this.answers=[];
         this.selectedCount=0;
-        this.questions=3;
+        this.questions=6;
         this.continueUse = 0;
         
         this.counter = 1;

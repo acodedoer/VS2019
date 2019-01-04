@@ -30,5 +30,7 @@ var mainmenu = new Phaser.Class({
         this.bt4 = this.add.image(window.innerWidth, window.innerHeight/2+(360*game.global.scaleVar), 'btnAbout').setOrigin(1,1).setInteractive().setScale(game.global.scaleVar);
         this.bt4.on('pointerdown', () => {this.scene.start('about');});
         
+        this.footer = this.add.image(window.innerWidth/2, window.innerHeight+(40*game.global.scaleVar), 'footer').setOrigin(0.5,1).setInteractive().setScale(game.global.scaleVar);
+        this.footer.on('pointerdown', () => {window.open("http://inecnigeria.org", "_blank");});
     }
 });
