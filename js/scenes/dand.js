@@ -82,6 +82,7 @@ var dand = new Phaser.Class({
         this.home.destroy();
         
         localStorage.setItem("mode2", 2);
+        this.sound.play('done');
         
         this.congrats = this.add.image(window.innerWidth/2, 40, 'congrats1').setOrigin(0.5,0).setInteractive().setScale(game.global.scaleVar);
         
@@ -139,6 +140,7 @@ var dand = new Phaser.Class({
         var right = false;
         for(var i=0; i<this.correctAnswers; i++){
             if (this.selectedOption==this.answers[i]){
+                this.sound.play('correct');
                 this.options[this.selectedOption].setTexture('optionBoxR');
                 this.options[this.selectedOption].text.setColor("#ffffff");
                 this.selectedCount+=1;
@@ -149,6 +151,7 @@ var dand = new Phaser.Class({
         }
         
         if (right==false){
+            this.sound.play('wrong');
             this.options[this.selectedOption].setTexture('optionBoxW');
             this.options[this.selectedOption].text.setColor("#ffffff");
         }
@@ -185,15 +188,15 @@ var dand = new Phaser.Class({
 
         console.log('inside');
         this.options[0]= this.add.image(window.innerWidth/4, window.innerHeight/2-(200*game.global.scaleVar), 'vote1').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar*.72);
-        this.options[0].on('pointerdown', () => {this.options[0].setFrame(1);this.options[0].disableInteractive();});
+        this.options[0].on('pointerdown', () => {this.options[0].setFrame(1);this.options[0].disableInteractive();this.sound.play('wrong');});
         
         this.options[1]= this.add.image(window.innerWidth *3/4, window.innerHeight/2-(200*game.global.scaleVar), 'vote2').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar*.72);
-        this.options[1].on('pointerdown', () => {this.options[1].setFrame(1);this.options[1].disableInteractive();});
+        this.options[1].on('pointerdown', () => {this.options[1].setFrame(1);this.options[1].disableInteractive();this.sound.play('wrong');});
 
         this.options[2]= this.add.image(window.innerWidth/4, window.innerHeight/2+(390*game.global.scaleVar), 'vote3').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar*.72);
-        this.options[2].on('pointerdown', () => {this.options[2].setFrame(1);this.options[2].disableInteractive(); this.clickHandler2();});
+        this.options[2].on('pointerdown', () => {this.options[2].setFrame(1);this.options[2].disableInteractive(); this.clickHandler2();this.sound.play('correct');});
         
         this.options[3]= this.add.image(window.innerWidth *3/4,window.innerHeight/2+(390*game.global.scaleVar), 'vote4').setOrigin(0.5).setInteractive().setScale(game.global.scaleVar*.72);
-        this.options[3].on('pointerdown', () => {this.options[3].setFrame(1);this.options[3].disableInteractive();});
+        this.options[3].on('pointerdown', () => {this.options[3].setFrame(1);this.options[3].disableInteractive();this.sound.play('wrong');});
     }
 });

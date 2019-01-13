@@ -11,6 +11,9 @@ preload: function  ()
         this.load.image('btnDay1', 'assets/btnDay1.png');
         this.load.image('btnDay2', 'assets/btnDay2.png');
         this.load.image('btnDay3', 'assets/btnDay3.png');
+        this.load.audio("correct", "assets/correct.mp3");
+        this.load.audio("wrong", "assets/wrong.mp3");
+        this.load.audio("done", "assets/done.mp3");
         
         this.load.image('btnInfo', 'assets/btnInfo.png');
         this.load.image('btnPrepare1', 'assets/btnPrepare1.png');

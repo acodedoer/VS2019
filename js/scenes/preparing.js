@@ -79,6 +79,7 @@ var preparing = new Phaser.Class({
         this.notice.destroy();
         this.txtQuestion.destroy();
         this.home.destroy();
+        this.sound.play('done');
         
         this.congrats = this.add.image(window.innerWidth/2, 40, 'congrats').setOrigin(0.5,0).setInteractive().setScale(game.global.scaleVar);
         
@@ -137,6 +138,7 @@ var preparing = new Phaser.Class({
         var right = false;
         for(var i=0; i<this.correctAnswers; i++){
             if (this.selectedOption==this.answers[i]){
+                this.sound.play('correct');
                 this.options[this.selectedOption].setTexture('optionBoxR');
                 this.options[this.selectedOption].text.setColor("#ffffff");
                 this.selectedCount+=1;
@@ -147,6 +149,7 @@ var preparing = new Phaser.Class({
         }
         
         if (right==false){
+            this.sound.play('wrong');
             this.options[this.selectedOption].setTexture('optionBoxW');
             this.options[this.selectedOption].text.setColor("#ffffff");
         }
